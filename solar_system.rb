@@ -2,35 +2,45 @@ class System
 
   attr_reader :bodies, :num_planets, :num_moons, :num_stars
 
-    def initialize
-      @bodies = []
-      @num_planets = 0
-      @num_moons = 0
-      @num_stars = 0
-    end
+  def initialize
+    @bodies = []
+    @bodies_count = { Planet: 0, Star: 0, Moon: 0 }
+  end
 
   def add(body_name)
-
-    name_counter = 0
+    contains_body = false
     @bodies.each { |body|
-    name_counter += 1 if body.name == body_name.name } #is there a better way to do this
-
-    if name_counter == 1
-      return "This celestial body already exists."
-    else
-      @bodies << body_name
-      if body_name.class == Moon
-        @num_moons += 1
-      elsif body_name.class == Star
-        @num_stars += 1
-      elsif body_name.class == Planet
-        @num_planets += 1
-      else
-        return "Does not work"
-      end
+        if body.name == body_name.name
+        puts "This celestial body already exists."
+        contained = true
+        end
+      }
+    if contains_body == false
+         @bodies << body_name
+         @bodies_count[body_name.class.name.to_sym] += 1
     end
-
   end
+
+    # name_counter = 0
+    # @bodies.each do |body|
+    # name_counter += 1 if body.name == body_name.name
+    # end #is there a better way to do this
+    #
+    # if name_counter == 1
+    #   return "This celestial body already exists."
+    # else
+    #   @bodies << body_name
+    #   if body_name.class == Moon
+    #     @num_moons += 1
+    #   elsif body_name.class == Star
+    #     @num_stars += 1
+    #   elsif body_name.class == Planet
+    #     @num_planets += 1
+    #   else
+    #     return "Does not work"
+    #   end
+    # end
+
 
   def total_mass
 
